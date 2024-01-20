@@ -13,11 +13,11 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 0.7rem 1.2rem 0.3rem 1.2rem;
-}
 
-.head > h2 {
-  font-weight: 600;
-  color: #4f4f4d;
+  h2 {
+    font-weight: 600;
+    color: #4f4f4d;
+  }
 }
 
 .favoriteStar {

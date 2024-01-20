@@ -1,0 +1,26 @@
+.container {
+  // border: 2px solid transparent;
+  border-radius: 2px;
+  box-shadow: 2px 2px 2px lightgrey;
+  margin: auto auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid lightgrey;
+}
+
+.icon {
+  height: 1rem;
+  margin: auto auto auto auto;
+  color: #51646e;
+}
+
+.input_field > input {
+  border: none;
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}

@@ -1,8 +1,8 @@
 import React from "react";
-import { Todo } from "../../models/todo";
+import { type Todo } from "../../models/todo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import styles from "./style.module.scss";
+import styles from "./styles.module.scss";
 import { faPalette, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "@/app/enums/colors";
 
