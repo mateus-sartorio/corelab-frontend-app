@@ -1,6 +1,10 @@
 {
   "name": "corelab-frontend-app",
   "version": "0.1.0",
+  "engines": {
+    "node": "^16.15.0",
+    "npm": "^8.5.5"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
