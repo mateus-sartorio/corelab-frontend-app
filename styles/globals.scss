@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+$navbar-height: 3rem;
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -14,4 +12,14 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+}
+
+body {
+  padding: 0rem;
+  margin: 0;
+}
+
+main {
+  padding: 1rem;
+  padding-top: $navbar-height + 1rem;
 }
