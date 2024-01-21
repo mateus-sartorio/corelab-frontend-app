@@ -1,12 +1,23 @@
+"use client";
+
+import { CreateTodo } from "./components/CreateTodo/CreateTodo";
 import { Todo } from "./components/Todo/Todo";
 import { Colors } from "./enums/colors";
 
 export default function Home() {
   return (
     <main>
+      <CreateTodo />
+
+      <br />
+
+      <p>Favoritas</p>
+
       <Todo title="Some cool title" body="Some cool task to do in here" isFavorited={false} color={Colors.BABY_BLUE} />
 
       <br />
+
+      <p>Outras</p>
 
       <Todo title="Some cool title" body="Some cool task to do in here" isFavorited={true} color={Colors.WHITE} />
 
