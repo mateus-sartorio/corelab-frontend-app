@@ -42,9 +42,13 @@ export default function Home() {
 
       <p>Favoritas</p>
 
-      {favoritedTodos.map((todo) => (
-        <Todo key={todo.id} id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
-      ))}
+      <ul>
+        {favoritedTodos.map((todo) => (
+          <li key={todo.id}>
+            <Todo id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
+          </li>
+        ))}
+      </ul>
 
       <br />
 
@@ -52,9 +56,13 @@ export default function Home() {
 
       <br />
 
-      {nonfavoritedTodos.map((todo) => (
-        <Todo key={todo.id} id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
-      ))}
+      <ul>
+        {nonfavoritedTodos.map((todo) => (
+          <li key={todo.id}>
+            <Todo id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
+          </li>
+        ))}
+      </ul>
     </main>
   );
 }
