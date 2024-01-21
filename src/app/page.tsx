@@ -12,27 +12,27 @@ export default function Home() {
   const nonfavoritedTodos = useSelector(selectNonFavoritedTodos);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(
-      addTodo({
-        id: "1",
-        title: "favorite",
-        body: "nice bro",
-        color: Colors.BLUE,
-        isFavorited: true,
-      })
-    );
+  // useEffect(() => {
+  //   dispatch(
+  //     addTodo({
+  //       id: "1",
+  //       title: "favorite",
+  //       body: "nice bro",
+  //       color: Colors.BLUE,
+  //       isFavorited: true,
+  //     })
+  //   );
 
-    dispatch(
-      addTodo({
-        id: "2",
-        title: "what",
-        body: "not favorited",
-        color: Colors.WHITE,
-        isFavorited: false,
-      })
-    );
-  }, []);
+  //   dispatch(
+  //     addTodo({
+  //       id: "2",
+  //       title: "what",
+  //       body: "not favorited",
+  //       color: Colors.WHITE,
+  //       isFavorited: false,
+  //     })
+  //   );
+  // }, []);
 
   return (
     <main>
@@ -43,17 +43,17 @@ export default function Home() {
       <p>Favoritas</p>
 
       {favoritedTodos.map((todo) => (
-        <Todo id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
+        <Todo key={todo.id} id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
       ))}
 
       <br />
 
-      <p>Outras</p>
+      <p onMouseEnter={(e) => console.log("nice")}>Outras</p>
 
       <br />
 
       {nonfavoritedTodos.map((todo) => (
-        <Todo id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
+        <Todo key={todo.id} id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
       ))}
     </main>
   );
