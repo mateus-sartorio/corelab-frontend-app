@@ -1,0 +1,22 @@
+.container {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  background-color: white;
+  border-radius: 14px;
+  padding: 0.5rem;
+  gap: 1rem;
+  border: 1px solid lightgrey;
+  box-shadow: 3px 3px 2px lightgrey;
+  width: min-content;
+  position: absolute;
+
+  li {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+}
