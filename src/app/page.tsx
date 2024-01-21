@@ -6,33 +6,36 @@ import { Todo } from "./components/Todo/Todo";
 import { Colors } from "./enums/colors";
 import { setAllTodos, addTodo, removeTodo, updateTodo, selectAllTodos, selectFavoritedTodos, selectNonFavoritedTodos } from "./store/todosReducers";
 import { useSelector, useDispatch } from "react-redux";
+import { todoResponseDTO } from "./models/DTO/todoResponseDTO";
+
+const API_ENDPOINT = "http://localhost:4000/api/v1/todos";
 
 export default function Home() {
   const favoritedTodos = useSelector(selectFavoritedTodos);
   const nonfavoritedTodos = useSelector(selectNonFavoritedTodos);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(
-  //     addTodo({
-  //       id: "1",
-  //       title: "favorite",
-  //       body: "nice bro",
-  //       color: Colors.BLUE,
-  //       isFavorited: true,
-  //     })
-  //   );
+  async function getAllTodos(url: string) {
+    const response = await fetch(url);
+    const todos: todoResponseDTO[] = await response.json();
+    dispatch(
+      setAllTodos(
+        todos.map((todo) => {
+          return {
+            id: todo._id,
+            title: todo.title,
+            body: todo.body,
+            isFavorited: todo.isFavorited,
+            color: todo.color,
+          };
+        })
+      )
+    );
+  }
 
-  //   dispatch(
-  //     addTodo({
-  //       id: "2",
-  //       title: "what",
-  //       body: "not favorited",
-  //       color: Colors.WHITE,
-  //       isFavorited: false,
-  //     })
-  //   );
-  // }, []);
+  useEffect(() => {
+    getAllTodos(API_ENDPOINT ?? "");
+  }, []);
 
   return (
     <main>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { type Todo } from "../../models/todo";
+import { type Todo } from "../../models/entity/todo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";

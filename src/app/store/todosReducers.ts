@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { Todo } from "../models/todo";
+import { Todo } from "../models/entity/todo";
 import { RootState } from "./store";
 
 export const appStateSlice = createSlice({
