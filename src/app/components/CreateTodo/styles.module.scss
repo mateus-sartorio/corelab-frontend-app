@@ -20,6 +20,8 @@
     font-weight: 600;
     color: #4f4f4d;
     border: none;
+    width: 100%;
+    font-size: 1.2rem;
 
     &:focus {
       outline: none;
@@ -33,6 +35,7 @@
   stroke: #51646e;
   stroke-width: 4rem;
   overflow: visible;
+  cursor: pointer;
 }
 
 .icon {
@@ -46,12 +49,14 @@
   padding: 1rem;
   color: #4f4f4d;
 
-  div {
+  textarea {
     color: #4f4f4d;
     border: none;
     width: 100%;
     overflow-wrap: break-word;
     white-space: pre-wrap;
+    resize: none;
+    font-family: inherit;
 
     &:focus {
       outline: none;
@@ -73,4 +78,17 @@
   justify-content: flex-start;
   gap: 0.7rem;
   // margin: 2px solid brown;
+}
+
+.icon {
+  height: 1rem;
+  margin: auto 1.5rem 0.8rem auto;
+  color: #51646e;
+  cursor: pointer;
+}
+
+.createTodosContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
 }
