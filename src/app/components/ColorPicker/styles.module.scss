@@ -1,7 +1,8 @@
+@import "../../../../global_styles/break-points.scss";
+
 .container {
   list-style-type: none;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   background-color: white;
   border-radius: 14px;
   padding: 0.5rem;
@@ -10,6 +11,14 @@
   box-shadow: 3px 3px 2px lightgrey;
   width: min-content;
   position: absolute;
+
+  @include tablet {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @include laptop {
+    grid-template-columns: repeat(6, 1fr);
+  }
 
   li {
     width: 3rem;

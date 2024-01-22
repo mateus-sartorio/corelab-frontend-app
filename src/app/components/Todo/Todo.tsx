@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { type Todo } from "../../models/todo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +13,9 @@ import { AppDispatch } from "@/app/store/store";
 export function Todo(props: Todo) {
   const { id, title, body, color, isFavorited } = props;
 
+  const titleRef = useRef<HTMLInputElement>(null);
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
+
   const [newTitle, setNewTitle] = useState(title);
   const [newBody, setNewBody] = useState(body);
   const [isBeingEdited, setIsBeingEdited] = useState(false);
@@ -24,7 +27,11 @@ export function Todo(props: Todo) {
   let line_division_color = color === Colors.WHITE ? "#e2e2e2" : "#ffffff";
 
   function onIsBeingEditedToggle() {
-    setIsBeingEdited((current) => !current);
+    setIsBeingEdited(true);
+
+    const end = bodyRef.current?.value.length ?? 0;
+    titleRef.current?.setSelectionRange(end, end);
+    titleRef.current?.focus();
   }
 
   function onToggleShowColorPaletteToggle() {
@@ -32,6 +39,9 @@ export function Todo(props: Todo) {
   }
 
   function saveModifications() {
+    console.log("on save modifications");
+    console.log(title, body);
+
     dispatch(
       updateTodo({
         id,
@@ -75,15 +85,36 @@ export function Todo(props: Todo) {
     setShowColorPalette(false);
   }
 
+  function onTitleChange(e: ChangeEvent<HTMLInputElement>) {
+    setNewTitle(e.target.value);
+  }
+
+  function onBodyChange(e: any) {
+    console.log(e.target.textContent);
+    setNewBody(e.target.textContent);
+  }
+
+  function onClick(e: any) {
+    e.target.style.height = "auto";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  }
+
+  useEffect(() => {
+    bodyRef.current?.click();
+    titleRef.current?.click();
+  }, []);
+
   return (
     <div style={{ backgroundColor: color }} className={styles.container}>
       <div className={styles.head} style={{ borderBottom: `2px solid ${line_division_color}` }}>
-        {isBeingEdited ? <input type="text" value={newTitle} placeholder="Título" onChange={(e) => setNewTitle(e.target.value)} style={{ backgroundColor: color }} /> : <h2>{title}</h2>}
+        <input type="text" value={newTitle} placeholder="Título" onChange={onTitleChange} style={{ backgroundColor: color }} readOnly={!isBeingEdited} ref={titleRef} />
 
         <FontAwesomeIcon icon={faStar} className={styles.favoriteStar} style={{ color: starIconFillColor }} onClick={onFavoriteToggle} />
       </div>
 
-      <div className={styles.body}>{isBeingEdited ? <textarea value={newBody} onChange={(e) => setNewBody(e.target.value)} placeholder="Criar nota..." style={{ backgroundColor: color }} /> : <p>{body}</p>}</div>
+      <div className={styles.body} contentEditable={isBeingEdited} suppressContentEditableWarning={true} onInput={onBodyChange} style={{ backgroundColor: color }}>
+        {body}
+      </div>
 
       <div className={styles.bottom}>
         <div className={styles.bottom_left}>

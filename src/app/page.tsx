@@ -7,6 +7,7 @@ import { fetchTodos, selectFavoritedTodos, selectNonFavoritedTodos } from "./sto
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "./store/store";
 import { selectSearch } from "./store/features/generalStateSlice";
+import styles from "./styles.module.scss";
 
 export default function Home() {
   const favoritedTodos = useSelector(selectFavoritedTodos);
@@ -20,7 +21,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
+    <main className={styles.main}>
       <CreateTodo />
 
       <br />
@@ -29,6 +30,7 @@ export default function Home() {
 
       <ul>
         {favoritedTodos
+          .toReversed()
           .filter((todo) => todo.title.includes(search) || todo.body.includes(search))
           .map((todo) => (
             <li key={todo.id}>
@@ -42,6 +44,7 @@ export default function Home() {
 
       <ul>
         {nonfavoritedTodos
+          .toReversed()
           .filter((todo) => todo.title.includes(search) || todo.body.includes(search))
           .map((todo) => (
             <li key={todo.id}>
@@ -50,7 +53,7 @@ export default function Home() {
           ))}
       </ul>
 
-      {favoritedTodos.length === 0 && nonfavoritedTodos.length === 0 && <p>Nenhuma tarefa adicionada :(</p>}
+      {favoritedTodos.length === 0 && nonfavoritedTodos.length === 0 && <p className={styles.no_todo_addded_text}>Nenhuma tarefa adicionada :(</p>}
     </main>
   );
 }

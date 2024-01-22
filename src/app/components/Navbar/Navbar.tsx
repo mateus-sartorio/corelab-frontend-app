@@ -9,13 +9,15 @@ import Searchbar from "../Searchbar/Searchbar";
 export default function () {
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>
-        <Image src={Logo} alt="Todos logo" className={styles.logo_image} quality={100} width={20} />
+      <div className={styles.logo_container}>
+        <Image src={Logo} alt="Todos logo" className={styles.logo_image} quality={100} width={30} />
         <p>CoreNotes</p>
       </div>
-      <Searchbar />
-      <div className={styles.icon_container}>
-        <FontAwesomeIcon icon={faXmark} className={styles.icon} />
+      <div className={styles.searchbar_container}>
+        <Searchbar />
+      </div>
+      <div className={styles.x_icon_container}>
+        <FontAwesomeIcon icon={faXmark} className={styles.x_icon} />
       </div>
     </div>
   );
