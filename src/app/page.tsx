@@ -4,37 +4,36 @@ import { useEffect } from "react";
 import { CreateTodo } from "./components/CreateTodo/CreateTodo";
 import { Todo } from "./components/Todo/Todo";
 import { Colors } from "./enums/colors";
-import { setAllTodos, addTodo, removeTodo, updateTodo, selectAllTodos, selectFavoritedTodos, selectNonFavoritedTodos } from "./store/todosReducers";
+import { fetchTodos, selectFavoritedTodos, selectNonFavoritedTodos } from "./store/features/todosSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { todoResponseDTO } from "./models/DTO/todoResponseDTO";
-
-const API_ENDPOINT = "http://localhost:4000/api/v1/todos";
+import { todoResponseDTO } from "./DTOs/response/todoResponseDTO";
+import { AppDispatch } from "./store/store";
 
 export default function Home() {
   const favoritedTodos = useSelector(selectFavoritedTodos);
   const nonfavoritedTodos = useSelector(selectNonFavoritedTodos);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  async function getAllTodos(url: string) {
-    const response = await fetch(url);
-    const todos: todoResponseDTO[] = await response.json();
-    dispatch(
-      setAllTodos(
-        todos.map((todo) => {
-          return {
-            id: todo._id,
-            title: todo.title,
-            body: todo.body,
-            isFavorited: todo.isFavorited,
-            color: todo.color,
-          };
-        })
-      )
-    );
-  }
+  // async function getAllTodos(url: string) {
+  //   const response = await fetch(url);
+  //   const todos: todoResponseDTO[] = await response.json();
+  //   dispatch(
+  //     setAllTodos(
+  //       todos.map((todo) => {
+  //         return {
+  //           id: todo._id,
+  //           title: todo.title,
+  //           body: todo.body,
+  //           isFavorited: todo.isFavorited,
+  //           color: todo.color,
+  //         };
+  //       })
+  //     )
+  //   );
+  // }
 
   useEffect(() => {
-    getAllTodos(API_ENDPOINT ?? "");
+    dispatch(fetchTodos());
   }, []);
 
   return (
@@ -43,7 +42,7 @@ export default function Home() {
 
       <br />
 
-      <p>Favoritas</p>
+      {favoritedTodos.length > 0 && <p>Favoritas</p>}
 
       <ul>
         {favoritedTodos.map((todo) => (
@@ -53,11 +52,8 @@ export default function Home() {
         ))}
       </ul>
 
-      <br />
-
-      <p onMouseEnter={(e) => console.log("nice")}>Outras</p>
-
-      <br />
+      {favoritedTodos.length > 0 && nonfavoritedTodos.length > 0 && <p>Outras</p>}
+      {favoritedTodos.length === 0 && nonfavoritedTodos.length > 0 && <p>Todas</p>}
 
       <ul>
         {nonfavoritedTodos.map((todo) => (
@@ -66,6 +62,8 @@ export default function Home() {
           </li>
         ))}
       </ul>
+
+      {favoritedTodos.length === 0 && nonfavoritedTodos.length === 0 && <p>Nenhuma tarefa adicionada :(</p>}
     </main>
   );
 }
