@@ -5,23 +5,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { setAllTodos, addTodo, removeTodo, updateTodo, selectAllTodos, selectFavoritedTodos, selectNonFavoritedTodos } from "../../store/todosReducers";
 import { v4 } from "uuid";
 
 import ContentEditable from "react-contenteditable";
 import { Colors } from "@/app/enums/colors";
+import { saveTodo } from "@/app/store/features/todosSlice";
+import { AppDispatch } from "@/app/store/store";
 
 export function CreateTodo() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [isFavorited, setIsFavorited] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  function createTodo(e: any) {
+  function createTodo() {
     dispatch(
-      addTodo({
-        id: v4(),
+      saveTodo({
         title,
         body,
         isFavorited,
@@ -48,11 +48,10 @@ export function CreateTodo() {
       </div>
 
       <div className={styles.body}>
-        {/* <ContentEditable onChange={(e) => setBody(e.currentTarget.textContent)} html={body} /> */}
         <textarea value={body} onChange={onChange} placeholder="Criar nota..." />
       </div>
 
-      {(title.length > 0 || body.length > 0) && (
+      {title.length > 0 && body.length > 0 && (
         <div className={styles.createTodosContainer}>
           <FontAwesomeIcon icon={faCheck} className={styles.icon} onClick={createTodo} />
         </div>

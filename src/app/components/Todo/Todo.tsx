@@ -5,9 +5,10 @@ import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
 import { faPalette, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "@/app/enums/colors";
-import { setAllTodos, addTodo, removeTodo, updateTodo, selectAllTodos, selectFavoritedTodos, selectNonFavoritedTodos } from "../../store/todosReducers";
+import { deleteTodo, updateTodo } from "@/app/store/features/todosSlice";
 import { useSelector, useDispatch } from "react-redux";
 import ColorPicker from "../ColorPicker/ColorPicker";
+import { AppDispatch } from "@/app/store/store";
 
 export function Todo(props: Todo) {
   const { id, title, body, color, isFavorited } = props;
@@ -17,7 +18,7 @@ export function Todo(props: Todo) {
   const [isBeingEdited, setIsBeingEdited] = useState(false);
   const [showColorPalete, setShowColorPalette] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   let starIconFillColor = isFavorited ? "#ffa000" : "transparent";
   let line_division_color = color === Colors.WHITE ? "#e2e2e2" : "#ffffff";
@@ -37,9 +38,11 @@ export function Todo(props: Todo) {
         title: newTitle,
         body: newBody,
         color,
-        isFavorited: !isFavorited,
+        isFavorited,
       })
     );
+
+    setIsBeingEdited(false);
   }
 
   function onFavoriteToggle() {
@@ -54,8 +57,8 @@ export function Todo(props: Todo) {
     );
   }
 
-  function deleteTodo() {
-    dispatch(removeTodo(id));
+  function removeTodo() {
+    dispatch(deleteTodo(id));
   }
 
   function changeTodoColor(color: Colors) {
@@ -73,28 +76,26 @@ export function Todo(props: Todo) {
   }
 
   return (
-    <>
-      <div style={{ backgroundColor: color }} className={styles.container}>
-        <div className={styles.head} style={{ borderBottom: `2px solid ${line_division_color}` }}>
-          {isBeingEdited ? <input type="text" value={newTitle} placeholder="Título" onChange={(e) => setNewTitle(e.target.value)} style={{ backgroundColor: color }} /> : <h2>{title}</h2>}
+    <div style={{ backgroundColor: color }} className={styles.container}>
+      <div className={styles.head} style={{ borderBottom: `2px solid ${line_division_color}` }}>
+        {isBeingEdited ? <input type="text" value={newTitle} placeholder="Título" onChange={(e) => setNewTitle(e.target.value)} style={{ backgroundColor: color }} /> : <h2>{title}</h2>}
 
-          <FontAwesomeIcon icon={faStar} className={styles.favoriteStar} style={{ color: starIconFillColor }} onClick={onFavoriteToggle} />
-        </div>
-
-        <div className={styles.body}>{isBeingEdited ? <textarea value={newBody} onChange={(e) => setNewBody(e.target.value)} placeholder="Criar nota..." style={{ backgroundColor: color }} /> : <p>{body}</p>}</div>
-
-        <div className={styles.bottom}>
-          <div className={styles.bottom_left}>
-            {isBeingEdited ? <FontAwesomeIcon icon={faCheck} className={styles.icon} onClick={saveModifications} /> : <FontAwesomeIcon icon={faPencil} className={styles.icon} onClick={onIsBeingEditedToggle} />}
-
-            <div>
-              <FontAwesomeIcon icon={faPalette} className={styles.icon} onClick={onToggleShowColorPaletteToggle} />
-              {showColorPalete && <ColorPicker changeColor={changeTodoColor} />}
-            </div>
-          </div>
-          <FontAwesomeIcon icon={faXmark} className={styles.icon} onClick={deleteTodo} />
-        </div>
+        <FontAwesomeIcon icon={faStar} className={styles.favoriteStar} style={{ color: starIconFillColor }} onClick={onFavoriteToggle} />
       </div>
-    </>
+
+      <div className={styles.body}>{isBeingEdited ? <textarea value={newBody} onChange={(e) => setNewBody(e.target.value)} placeholder="Criar nota..." style={{ backgroundColor: color }} /> : <p>{body}</p>}</div>
+
+      <div className={styles.bottom}>
+        <div className={styles.bottom_left}>
+          {isBeingEdited ? <FontAwesomeIcon icon={faCheck} className={styles.icon} onClick={saveModifications} /> : <FontAwesomeIcon icon={faPencil} className={styles.icon} onClick={onIsBeingEditedToggle} />}
+
+          <div>
+            <FontAwesomeIcon icon={faPalette} className={styles.icon} onClick={onToggleShowColorPaletteToggle} />
+            {showColorPalete && <ColorPicker changeColor={changeTodoColor} />}
+          </div>
+        </div>
+        <FontAwesomeIcon icon={faXmark} className={styles.icon} onClick={removeTodo} />
+      </div>
+    </div>
   );
 }
