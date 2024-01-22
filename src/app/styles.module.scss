@@ -16,17 +16,22 @@
     }
 
     @include laptop {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
     }
 
-    // li {
-    //   margin: 0 0 1.5rem 0;
-    // }
+    @include desktop {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include desktop-large {
+      grid-template-columns: repeat(5, 1fr);
+    }
   }
 
   > p {
     color: #464646;
     margin: 0 1rem;
+    font-size: 0.9rem;
   }
 }
 
