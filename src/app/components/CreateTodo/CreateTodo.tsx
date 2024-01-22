@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useRef, MouseEvent, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
@@ -13,6 +13,8 @@ export function CreateTodo() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [isFavorited, setIsFavorited] = useState(false);
+
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -29,12 +31,18 @@ export function CreateTodo() {
     setTitle("");
     setBody("");
     setIsFavorited(false);
+
+    bodyRef.current?.click();
   }
 
   function onChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setBody(e.target.value);
     e.target.style.height = "auto";
     e.target.style.height = `${e.target.scrollHeight}px`;
+  }
+
+  function updateBodyInputHeight(e: any) {
+    e.target.style.height = "auto";
   }
 
   return (
@@ -45,7 +53,7 @@ export function CreateTodo() {
       </div>
 
       <div className={styles.body}>
-        <textarea value={body} onChange={onChange} placeholder="Criar nota..." />
+        <textarea value={body} onChange={onChange} placeholder="Criar nota..." ref={bodyRef} onClick={updateBodyInputHeight} />
       </div>
 
       {title.length > 0 && body.length > 0 && (
