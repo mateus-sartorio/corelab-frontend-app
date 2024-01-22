@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { Todo } from "../../models/todo";
 import { RootState } from "../store";
@@ -61,7 +61,7 @@ export const deleteTodo = createAsyncThunk("todos/delete", async (id: string, th
   return data;
 });
 
-export const appStateSlice = createSlice({
+export const todosSlice = createSlice({
   name: "todos",
   initialState: {
     todos: [] as Todo[],
@@ -119,8 +119,8 @@ export const appStateSlice = createSlice({
   },
 });
 
-export const selectAllTodos = (state: RootState) => state.appState.todos;
-export const selectFavoritedTodos = (state: RootState) => state.appState.todos.filter((todo) => todo.isFavorited);
-export const selectNonFavoritedTodos = (state: RootState) => state.appState.todos.filter((todo) => !todo.isFavorited);
+export const selectAllTodos = (state: RootState) => state.todosState.todos;
+export const selectFavoritedTodos = (state: RootState) => state.todosState.todos.filter((todo) => todo.isFavorited);
+export const selectNonFavoritedTodos = (state: RootState) => state.todosState.todos.filter((todo) => !todo.isFavorited);
 
-export default appStateSlice.reducer;
+export default todosSlice.reducer;
