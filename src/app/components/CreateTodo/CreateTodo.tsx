@@ -1,13 +1,10 @@
 "use client";
 
-import React, { ChangeEvent, FocusEventHandler, FormEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
-import { useSelector, useDispatch } from "react-redux";
-import { v4 } from "uuid";
-
-import ContentEditable from "react-contenteditable";
+import { useDispatch } from "react-redux";
 import { Colors } from "@/app/enums/colors";
 import { saveTodo } from "@/app/store/features/todosSlice";
 import { AppDispatch } from "@/app/store/store";

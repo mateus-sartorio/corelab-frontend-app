@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import appStateSlice from "./features/todosSlice";
+import todosSlice from "./features/todosSlice";
+import generalStateSlice from "./features/generalStateSlice";
 
 export const store = configureStore({
   reducer: {
-    appState: appStateSlice,
+    todosState: todosSlice,
+    generalState: generalStateSlice,
   },
 });
 

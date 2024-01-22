@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 import { faPalette, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "@/app/enums/colors";
 import { deleteTodo, updateTodo } from "@/app/store/features/todosSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import ColorPicker from "../ColorPicker/ColorPicker";
 import { AppDispatch } from "@/app/store/store";
 
