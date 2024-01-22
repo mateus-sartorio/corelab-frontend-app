@@ -27,20 +27,14 @@ $desktop-large-size: 1201px;
   }
 }
 
-$background-color: #f0f2f5;
+// @include tablet {
+// }
 
-body {
-  background-color: $background-color;
+// @include laptop {
+// }
 
-  @include tablet {
-  }
+// @include desktop {
+// }
 
-  @include laptop {
-  }
-
-  @include desktop {
-  }
-
-  @include desktop-large {
-  }
-}
+// @include desktop-large {
+// }

@@ -1,8 +1,7 @@
 "use client";
 
 import { Inter } from "next/font/google";
-import "../../styles/globals.scss";
-import "../../styles/break-points.scss";
+import "../../global_styles/globals.scss";
 import Navbar from "./components/Navbar/Navbar";
 import { Provider } from "react-redux";
 import { store } from "./store/store";

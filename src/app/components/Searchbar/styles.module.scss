@@ -1,8 +1,8 @@
 .container {
   // border: 2px solid transparent;
-  border-radius: 2px;
+  border-radius: 3px;
   box-shadow: 2px 2px 2px lightgrey;
-  margin: auto auto;
+  margin: auto 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -12,8 +12,8 @@
 
 .icon {
   height: 1rem;
-  margin: auto auto auto auto;
-  color: #51646e;
+  margin: auto 0 auto auto;
+  color: #9e9e9e;
   cursor: pointer;
 }
 
