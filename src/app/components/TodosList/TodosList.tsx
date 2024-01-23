@@ -18,7 +18,7 @@ export default function TodosList() {
       <ul>
         {favoritedTodos
           .toReversed()
-          .filter((todo) => todo.title.includes(search) || todo.body.includes(search))
+          .filter((todo) => todo.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || todo.body.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
           .map((todo) => (
             <li key={todo.id}>
               <Todo id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
@@ -32,7 +32,7 @@ export default function TodosList() {
       <ul>
         {nonfavoritedTodos
           .toReversed()
-          .filter((todo) => todo.title.includes(search) || todo.body.includes(search))
+          .filter((todo) => todo.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || todo.body.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
           .map((todo) => (
             <li key={todo.id}>
               <Todo id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />

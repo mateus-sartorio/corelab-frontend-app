@@ -8,11 +8,11 @@
   box-shadow: 3px 3px 2px lightgrey;
   background-color: white;
 
-  @include tablet {
+  @include smartphone {
     border-radius: 25px;
   }
 
-  @include laptop {
+  @include tablet {
     border-radius: 6px;
     width: 734px;
     margin: 0 auto;

@@ -70,7 +70,6 @@ export const todosSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchTodos.fulfilled, (state, action) => {
-      console.log("fulfilled");
       state.areTodosLoading = false;
       state.todos = action.payload.map((todo: todoResponseDTO) => {
         const { _id, title, body, isFavorited, color } = todo;
