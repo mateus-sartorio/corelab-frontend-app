@@ -1,11 +1,10 @@
 import { selectColorFilter, selectSearch, selectShowFavorited, selectShowNonFavorited } from "@/app/store/features/generalStateSlice";
-import { selectFavoritedTodos, selectNonFavoritedTodos, fetchTodos } from "@/app/store/features/todosSlice";
-import { AppDispatch } from "@/app/store/store";
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { selectFavoritedTodos, selectNonFavoritedTodos } from "@/app/store/features/todosSlice";
+import React from "react";
+import { useSelector } from "react-redux";
 import styles from "./styles.module.scss";
 import { Todo } from "@/app/models/todo";
-import { TodoCard } from "../TodoCard/Todo";
+import { TodoCard } from "../TodoCard/TodoCard";
 
 export default function TodosList() {
   const favoritedTodos = useSelector(selectFavoritedTodos);

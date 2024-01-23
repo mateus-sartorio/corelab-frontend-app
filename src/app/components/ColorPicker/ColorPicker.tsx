@@ -19,14 +19,7 @@ export default function ColorPicker(props: propsType) {
   return (
     <ul className={containerClass}>
       {hasClearColorOption && (
-        <li
-          onClick={clearColor}
-          className={styles.icon}
-          style={{
-            backgroundColor: "#ffffff",
-            border: "1px solid lightgrey",
-          }}
-        >
+        <li onClick={clearColor} className={styles.icon} style={{ backgroundColor: "#ffffff" }}>
           <FontAwesomeIcon icon={faXmark} className={styles.icon} />
         </li>
       )}
