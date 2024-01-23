@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import ColorPicker from "../ColorPicker/ColorPicker";
 import { AppDispatch } from "@/app/store/store";
 
-export function Todo(props: Todo) {
+export function TodoCard(props: Todo) {
   const { id, title, body, color, isFavorited } = props;
 
   const titleRef = useRef<HTMLInputElement>(null);

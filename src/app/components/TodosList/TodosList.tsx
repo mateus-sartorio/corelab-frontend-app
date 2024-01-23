@@ -3,8 +3,9 @@ import { selectFavoritedTodos, selectNonFavoritedTodos, fetchTodos } from "@/app
 import { AppDispatch } from "@/app/store/store";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Todo } from "../Todo/Todo";
 import styles from "./styles.module.scss";
+import { Todo } from "@/app/models/todo";
+import { TodoCard } from "../TodoCard/Todo";
 
 export default function TodosList() {
   const favoritedTodos = useSelector(selectFavoritedTodos);
@@ -14,6 +15,13 @@ export default function TodosList() {
   const showNonFavorited = useSelector(selectShowNonFavorited);
   const colorFilter = useSelector(selectColorFilter);
 
+  function filterList(todoList: Todo[]): Todo[] {
+    return todoList
+      .toReversed()
+      .filter((todo) => todo.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || todo.body.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+      .filter((todo) => todo.color === colorFilter || colorFilter === null);
+  }
+
   return (
     <div className={styles.container}>
       {showFavorited && (
@@ -21,15 +29,11 @@ export default function TodosList() {
           {favoritedTodos.length > 0 && <p>Favoritas</p>}
 
           <ul>
-            {favoritedTodos
-              .toReversed()
-              .filter((todo) => todo.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || todo.body.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-              .filter((todo) => todo.color === colorFilter || colorFilter === null)
-              .map((todo) => (
-                <li key={todo.id}>
-                  <Todo id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
-                </li>
-              ))}
+            {filterList(favoritedTodos).map((todo) => (
+              <li key={todo.id}>
+                <TodoCard id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
+              </li>
+            ))}
           </ul>
         </>
       )}
@@ -40,15 +44,11 @@ export default function TodosList() {
           {favoritedTodos.length === 0 && nonfavoritedTodos.length > 0 && <p>Todas</p>}
 
           <ul>
-            {nonfavoritedTodos
-              .toReversed()
-              .filter((todo) => todo.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || todo.body.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-              .filter((todo) => todo.color === colorFilter || colorFilter === null)
-              .map((todo) => (
-                <li key={todo.id}>
-                  <Todo id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
-                </li>
-              ))}
+            {filterList(nonfavoritedTodos).map((todo) => (
+              <li key={todo.id}>
+                <TodoCard id={todo.id} title={todo.title} body={todo.body} isFavorited={todo.isFavorited} color={todo.color} />
+              </li>
+            ))}
           </ul>
         </>
       )}
