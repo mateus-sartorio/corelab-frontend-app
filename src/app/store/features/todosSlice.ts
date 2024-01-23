@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, createSelector } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
 
 import { Todo } from "../../models/todo";
 import { RootState } from "../store";
@@ -76,7 +76,7 @@ export const todosSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchTodos.fulfilled, (state, action) => {
+    builder.addCase(fetchTodos.fulfilled, (state, action: PayloadAction<todoResponseDTO[]>) => {
       state.areTodosLoading = false;
       state.todos = action.payload.map((todo: todoResponseDTO) => {
         const { _id, title, body, isFavorited, color } = todo;
@@ -90,7 +90,7 @@ export const todosSlice = createSlice({
       });
     });
 
-    builder.addCase(saveTodo.fulfilled, (state, action) => {
+    builder.addCase(saveTodo.fulfilled, (state, action: PayloadAction<todoResponseDTO>) => {
       const { _id, title, body, isFavorited, color } = action.payload;
       const newTodo = {
         id: _id,
@@ -103,8 +103,8 @@ export const todosSlice = createSlice({
       state.todos.push(newTodo);
     });
 
-    builder.addCase(updateTodo.fulfilled, (state, action) => {
-      state.todos = state.todos.map((todo) => {
+    builder.addCase(updateTodo.fulfilled, (state, action: PayloadAction<todoResponseDTO>) => {
+      state.todos = state.todos.map((todo: Todo) => {
         if (todo.id === action.payload._id) {
           const { _id, title, body, isFavorited, color } = action.payload;
           const newTodo = {
@@ -123,15 +123,14 @@ export const todosSlice = createSlice({
     });
 
     builder.addCase(deleteTodo.fulfilled, (state, action) => {
-      state.todos = state.todos.filter((todo) => todo.id !== action.payload._id);
+      state.todos = state.todos.filter((todo: Todo) => todo.id !== action.payload._id);
     });
   },
 });
 
-const selectAllTodos = (state: RootState) => state.todosState.todos;
-
-export const selectFavoritedTodos = createSelector([selectAllTodos], (todos) => todos.filter((todo: Todo) => todo.isFavorited));
-export const selectNonFavoritedTodos = createSelector([selectAllTodos], (todos) => todos.filter((todo: Todo) => !todo.isFavorited));
+export const selectAllTodos = (state: RootState) => state.todosState.todos;
+export const selectFavoritedTodos = createSelector([selectAllTodos], (todos: Todo[]) => todos.filter((todo: Todo) => todo.isFavorited));
+export const selectNonFavoritedTodos = createSelector([selectAllTodos], (todos: Todo[]) => todos.filter((todo: Todo) => !todo.isFavorited));
 export const selectAreTodosLoading = (state: RootState) => state.todosState.areTodosLoading;
 
 export default todosSlice.reducer;
