@@ -1,20 +1,19 @@
-import React, { ChangeEvent, useEffect, useRef, useState, KeyboardEvent } from "react";
+import React, { ChangeEvent, useRef, useState, KeyboardEvent } from "react";
 import { type Todo } from "../../models/todo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faFillDrip, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
-import { faPalette, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "@/app/enums/colors";
 import { deleteTodo, updateTodo } from "@/app/store/features/todosSlice";
 import { useDispatch } from "react-redux";
 import ColorPicker from "../ColorPicker/ColorPicker";
 import { AppDispatch } from "@/app/store/store";
 
-export function Todo(props: Todo) {
+export function TodoCard(props: Todo) {
   const { id, title, body, color, isFavorited } = props;
 
-  const titleRef = useRef<HTMLInputElement>(null);
-  const bodyRef = useRef<HTMLTextAreaElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
 
   const [newTitle, setNewTitle] = useState(title);
   const [newBody, setNewBody] = useState(body);
@@ -28,10 +27,6 @@ export function Todo(props: Todo) {
 
   function onIsBeingEditedToggle() {
     setIsBeingEdited(true);
-
-    const end = titleRef.current?.value.length ?? 10;
-    titleRef.current?.setSelectionRange(end, end);
-    titleRef.current?.focus();
   }
 
   function onToggleShowColorPaletteToggle() {
@@ -82,8 +77,8 @@ export function Todo(props: Todo) {
     setShowColorPalette(false);
   }
 
-  function onTitleChange(e: ChangeEvent<HTMLInputElement>) {
-    setNewTitle(e.target.value);
+  function onTitleChange(e: ChangeEvent<HTMLDivElement>) {
+    setNewTitle(e.target.textContent ?? "");
   }
 
   function onBodyChange(e: ChangeEvent<HTMLDivElement>) {
@@ -96,15 +91,12 @@ export function Todo(props: Todo) {
     }
   }
 
-  useEffect(() => {
-    bodyRef.current?.click();
-    titleRef.current?.click();
-  }, []);
-
   return (
     <div style={{ backgroundColor: color }} className={styles.container} onKeyDown={onKeyDown}>
       <div className={styles.head} style={{ borderBottom: `2px solid ${line_division_color}` }}>
-        <input type="text" value={newTitle} placeholder="Título" onChange={onTitleChange} style={{ backgroundColor: color }} readOnly={!isBeingEdited} ref={titleRef} />
+        <div contentEditable={isBeingEdited} suppressContentEditableWarning={true} onInput={onTitleChange} style={{ backgroundColor: color }} ref={titleRef}>
+          {title}
+        </div>
 
         <FontAwesomeIcon icon={faStar} className={styles.favoriteStar} style={{ color: starIconFillColor }} onClick={onFavoriteToggle} />
       </div>
@@ -119,7 +111,7 @@ export function Todo(props: Todo) {
 
           <div>
             <FontAwesomeIcon icon={faFillDrip} className={styles.icon} onClick={onToggleShowColorPaletteToggle} />
-            {showColorPalete && <ColorPicker changeColor={changeTodoColor} />}
+            {showColorPalete && <ColorPicker changeColor={changeTodoColor} isVertical={false} hasClearColorOption={false} />}
           </div>
         </div>
         <FontAwesomeIcon icon={faXmark} className={styles.icon} onClick={removeTodo} />

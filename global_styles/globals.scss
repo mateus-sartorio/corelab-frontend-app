@@ -1,9 +1,11 @@
-$navbar-height: 3rem;
-$background-color: #f0f2f5;
-$scroll-bar-color: #51646e;
+@import "./variables.scss";
+
+html {
+  font-size: 18px;
+}
 
 body {
-  padding: 0rem;
+  padding: 1rem 4rem 2rem 4rem;
   margin: 0;
   background-color: $background-color;
   overflow-x: hidden;
