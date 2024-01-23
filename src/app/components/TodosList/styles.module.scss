@@ -2,7 +2,7 @@
 @import "../../../../global_styles/break-points.scss";
 
 .container {
-  padding: 1rem;
+  padding: 1rem 0;
   padding-top: $navbar-height + 1rem;
 
   > ul {

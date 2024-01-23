@@ -3,7 +3,7 @@ import { type Todo } from "../../models/todo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faFillDrip, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
-import { faPalette, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "@/app/enums/colors";
 import { deleteTodo, updateTodo } from "@/app/store/features/todosSlice";
 import { useDispatch } from "react-redux";
