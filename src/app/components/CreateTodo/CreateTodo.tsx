@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useRef, MouseEvent, useState } from "react";
+import React, { ChangeEvent, useRef, MouseEvent, useState, KeyboardEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
@@ -45,8 +45,14 @@ export function CreateTodo() {
     e.target.style.height = "auto";
   }
 
+  function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (title.length > 0 && body.length > 0 && e.key === "Enter") {
+      createTodo();
+    }
+  }
+
   return (
-    <form className={styles.container}>
+    <div className={styles.container} onKeyDown={onKeyDown}>
       <div className={styles.head}>
         <input type="text" value={title} placeholder="Título" onChange={(e) => setTitle(e.target.value)} />
         <FontAwesomeIcon icon={faStar} className={styles.favoriteStar} style={{ color: isFavorited ? "#ffa000" : "transparent" }} onClick={() => setIsFavorited((previous) => !previous)} />
@@ -61,6 +67,6 @@ export function CreateTodo() {
           <FontAwesomeIcon icon={faCheck} className={styles.icon} onClick={createTodo} />
         </div>
       )}
-    </form>
+    </div>
   );
 }
