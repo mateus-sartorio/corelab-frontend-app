@@ -58,11 +58,9 @@ $navbar-height: 3rem;
   }
 
   @include laptop {
-    width: 33%;
-    // display: flex;
-    // flex-direction: row;
-    // justify-content: flex-start;
-    // gap: 1rem;
+    width: 40%;
+    min-width: 365px;
+    max-width: 750px;
   }
 }
 

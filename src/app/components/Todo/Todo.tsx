@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState, KeyboardEvent } from "react";
 import { type Todo } from "../../models/todo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faFillDrip, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
 import { faPalette, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "@/app/enums/colors";
@@ -29,7 +29,7 @@ export function Todo(props: Todo) {
   function onIsBeingEditedToggle() {
     setIsBeingEdited(true);
 
-    const end = bodyRef.current?.value.length ?? 0;
+    const end = titleRef.current?.value.length ?? 10;
     titleRef.current?.setSelectionRange(end, end);
     titleRef.current?.focus();
   }
@@ -39,9 +39,6 @@ export function Todo(props: Todo) {
   }
 
   function saveModifications() {
-    console.log("on save modifications");
-    console.log(title, body);
-
     dispatch(
       updateTodo({
         id,
@@ -89,14 +86,14 @@ export function Todo(props: Todo) {
     setNewTitle(e.target.value);
   }
 
-  function onBodyChange(e: any) {
-    console.log(e.target.textContent);
-    setNewBody(e.target.textContent);
+  function onBodyChange(e: ChangeEvent<HTMLDivElement>) {
+    setNewBody(e.target.textContent ?? "");
   }
 
-  function onClick(e: any) {
-    e.target.style.height = "auto";
-    e.target.style.height = `${e.target.scrollHeight}px`;
+  function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (e.key === "Enter") {
+      saveModifications();
+    }
   }
 
   useEffect(() => {
@@ -105,7 +102,7 @@ export function Todo(props: Todo) {
   }, []);
 
   return (
-    <div style={{ backgroundColor: color }} className={styles.container}>
+    <div style={{ backgroundColor: color }} className={styles.container} onKeyDown={onKeyDown}>
       <div className={styles.head} style={{ borderBottom: `2px solid ${line_division_color}` }}>
         <input type="text" value={newTitle} placeholder="Título" onChange={onTitleChange} style={{ backgroundColor: color }} readOnly={!isBeingEdited} ref={titleRef} />
 
@@ -121,7 +118,7 @@ export function Todo(props: Todo) {
           {isBeingEdited ? <FontAwesomeIcon icon={faCheck} className={styles.icon} onClick={saveModifications} /> : <FontAwesomeIcon icon={faPencil} className={styles.icon} onClick={onIsBeingEditedToggle} />}
 
           <div>
-            <FontAwesomeIcon icon={faPalette} className={styles.icon} onClick={onToggleShowColorPaletteToggle} />
+            <FontAwesomeIcon icon={faFillDrip} className={styles.icon} onClick={onToggleShowColorPaletteToggle} />
             {showColorPalete && <ColorPicker changeColor={changeTodoColor} />}
           </div>
         </div>
