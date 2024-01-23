@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { type Todo } from "../../models/todo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faFillDrip, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
 import { faPalette, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "@/app/enums/colors";
@@ -39,9 +39,6 @@ export function Todo(props: Todo) {
   }
 
   function saveModifications() {
-    console.log("on save modifications");
-    console.log(title, body);
-
     dispatch(
       updateTodo({
         id,
@@ -121,7 +118,7 @@ export function Todo(props: Todo) {
           {isBeingEdited ? <FontAwesomeIcon icon={faCheck} className={styles.icon} onClick={saveModifications} /> : <FontAwesomeIcon icon={faPencil} className={styles.icon} onClick={onIsBeingEditedToggle} />}
 
           <div>
-            <FontAwesomeIcon icon={faPalette} className={styles.icon} onClick={onToggleShowColorPaletteToggle} />
+            <FontAwesomeIcon icon={faFillDrip} className={styles.icon} onClick={onToggleShowColorPaletteToggle} />
             {showColorPalete && <ColorPicker changeColor={changeTodoColor} />}
           </div>
         </div>
