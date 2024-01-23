@@ -65,10 +65,13 @@ export const todosSlice = createSlice({
   name: "todos",
   initialState: {
     todos: [] as Todo[],
+    areTodosLoading: true,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchTodos.fulfilled, (state, action) => {
+      console.log("fulfilled");
+      state.areTodosLoading = false;
       state.todos = action.payload.map((todo: todoResponseDTO) => {
         const { _id, title, body, isFavorited, color } = todo;
         return {
@@ -122,5 +125,6 @@ export const todosSlice = createSlice({
 export const selectAllTodos = (state: RootState) => state.todosState.todos;
 export const selectFavoritedTodos = (state: RootState) => state.todosState.todos.filter((todo) => todo.isFavorited);
 export const selectNonFavoritedTodos = (state: RootState) => state.todosState.todos.filter((todo) => !todo.isFavorited);
+export const selectAreTodosLoading = (state: RootState) => state.todosState.areTodosLoading;
 
 export default todosSlice.reducer;
