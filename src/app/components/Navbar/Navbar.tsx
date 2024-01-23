@@ -6,7 +6,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
 import Searchbar from "../Searchbar/Searchbar";
 
-export default function () {
+export default function Navbar() {
   return (
     <div className={styles.container}>
       <div className={styles.logo_container}>
