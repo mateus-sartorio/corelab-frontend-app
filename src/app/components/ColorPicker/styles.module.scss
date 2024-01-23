@@ -12,17 +12,17 @@
   width: min-content;
   position: absolute;
 
-  @include tablet {
+  @include smartphone {
     grid-template-columns: repeat(6, 1fr);
   }
 
-  @include laptop {
-    grid-template-columns: repeat(6, 1fr);
+  @include tablet {
+    grid-template-columns: repeat(12, 1fr);
   }
 
   li {
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
     cursor: pointer;
     margin: 0;

@@ -13,12 +13,12 @@ $navbar-height: 3rem;
   padding: 0.1rem;
   box-shadow: 0 1px 5px lightgrey;
 
-  @include tablet {
+  @include smartphone {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
   }
 
-  @include laptop {
+  @include tablet {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -53,11 +53,11 @@ $navbar-height: 3rem;
 .searchbar_container {
   margin: auto 0;
 
-  @include tablet {
+  @include smartphone {
     width: 100%;
   }
 
-  @include laptop {
+  @include tablet {
     width: 40%;
     min-width: 365px;
     max-width: 750px;

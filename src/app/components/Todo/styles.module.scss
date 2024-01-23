@@ -8,7 +8,7 @@
   justify-content: space-between;
   box-shadow: 3px 3px 2px lightgrey;
 
-  @include laptop {
+  @include tablet {
     height: 33vh;
   }
 }
@@ -61,11 +61,12 @@
   font-family: inherit;
   overflow-wrap: break-word;
   word-break: break-all;
-  flex-grow: 1;
+  // border: 1px solid red;
 
-  @include laptop {
+  @include tablet {
     height: 33vh;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
     margin-bottom: 1rem;
     padding-bottom: 0;
   }
