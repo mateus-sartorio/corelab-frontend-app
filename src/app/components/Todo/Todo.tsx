@@ -119,7 +119,7 @@ export function Todo(props: Todo) {
 
           <div>
             <FontAwesomeIcon icon={faFillDrip} className={styles.icon} onClick={onToggleShowColorPaletteToggle} />
-            {showColorPalete && <ColorPicker changeColor={changeTodoColor} />}
+            {showColorPalete && <ColorPicker changeColor={changeTodoColor} isVertical={false} hasClearColorOption={false} />}
           </div>
         </div>
         <FontAwesomeIcon icon={faXmark} className={styles.icon} onClick={removeTodo} />
