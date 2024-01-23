@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState, KeyboardEvent } from "react";
 import { type Todo } from "../../models/todo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faFillDrip, faStar } from "@fortawesome/free-solid-svg-icons";
@@ -86,8 +86,14 @@ export function Todo(props: Todo) {
     setNewTitle(e.target.value);
   }
 
-  function onBodyChange(e: any) {
-    setNewBody(e.target.textContent);
+  function onBodyChange(e: ChangeEvent<HTMLDivElement>) {
+    setNewBody(e.target.textContent ?? "");
+  }
+
+  function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (e.key === "Enter") {
+      saveModifications();
+    }
   }
 
   useEffect(() => {
@@ -96,7 +102,7 @@ export function Todo(props: Todo) {
   }, []);
 
   return (
-    <div style={{ backgroundColor: color }} className={styles.container}>
+    <div style={{ backgroundColor: color }} className={styles.container} onKeyDown={onKeyDown}>
       <div className={styles.head} style={{ borderBottom: `2px solid ${line_division_color}` }}>
         <input type="text" value={newTitle} placeholder="Título" onChange={onTitleChange} style={{ backgroundColor: color }} readOnly={!isBeingEdited} ref={titleRef} />
 
