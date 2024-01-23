@@ -4,6 +4,8 @@ $navbar-color: #ffffff;
 $navbar-height: 3rem;
 
 .container {
+  left: 0;
+  top: 0;
   background-color: $navbar-color;
   margin: 0;
   position: fixed;
