@@ -15,7 +15,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchTodos());
-  }, []);
+  }, [dispatch]);
 
   return (
     <main className={styles.main}>
