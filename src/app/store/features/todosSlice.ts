@@ -61,12 +61,19 @@ export const deleteTodo = createAsyncThunk("todos/delete", async (id: string, th
   return data;
 });
 
+interface TodosState {
+  todos: Todo[];
+  areTodosLoading: boolean;
+}
+
+const initialState: TodosState = {
+  todos: [],
+  areTodosLoading: true,
+};
+
 export const todosSlice = createSlice({
   name: "todos",
-  initialState: {
-    todos: [] as Todo[],
-    areTodosLoading: true,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchTodos.fulfilled, (state, action) => {
