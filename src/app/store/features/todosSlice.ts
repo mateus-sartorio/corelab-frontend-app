@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, createSelector } from "@reduxjs/toolkit";
 
 import { Todo } from "../../models/todo";
 import { RootState } from "../store";
@@ -128,9 +128,10 @@ export const todosSlice = createSlice({
   },
 });
 
-export const selectAllTodos = (state: RootState) => state.todosState.todos;
-export const selectFavoritedTodos = (state: RootState) => state.todosState.todos.filter((todo) => todo.isFavorited);
-export const selectNonFavoritedTodos = (state: RootState) => state.todosState.todos.filter((todo) => !todo.isFavorited);
+const selectAllTodos = (state: RootState) => state.todosState.todos;
+
+export const selectFavoritedTodos = createSelector([selectAllTodos], (todos) => todos.filter((todo: Todo) => todo.isFavorited));
+export const selectNonFavoritedTodos = createSelector([selectAllTodos], (todos) => todos.filter((todo: Todo) => !todo.isFavorited));
 export const selectAreTodosLoading = (state: RootState) => state.todosState.areTodosLoading;
 
 export default todosSlice.reducer;
