@@ -1,0 +1,31 @@
+@import "../../../../global_styles/break-points.scss";
+
+.container {
+  list-style-type: none;
+  display: grid;
+  background-color: white;
+  border-radius: 14px;
+  padding: 0.5rem;
+  gap: 1rem;
+  border: 1px solid lightgrey;
+  box-shadow: 3px 3px 2px lightgrey;
+  width: min-content;
+  position: absolute;
+
+  @include smartphone {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @include tablet {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  li {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+}

@@ -1,6 +1,5 @@
 export enum Colors {
   WHITE = "#ffffff",
-  BABY_BLUE = "#bae2ff",
   GREEN = "#b9ffdd",
   YELLOW = "#ffe8ac",
   BABY_ORANGE = "#ffcab9",
@@ -10,6 +9,6 @@ export enum Colors {
   FLUORESCENT_GREEN = "#daff8b",
   ORANGE = "#ffa285",
   LIGHT_GRAY = "#cdcdcd",
-  GRAY = "979797",
-  BROWN = "a99a7c",
+  GRAY = "#979797",
+  BROWN = "#a99a7c",
 }
