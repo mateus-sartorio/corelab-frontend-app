@@ -29,7 +29,7 @@ export function Todo(props: Todo) {
   function onIsBeingEditedToggle() {
     setIsBeingEdited(true);
 
-    const end = bodyRef.current?.value.length ?? 0;
+    const end = titleRef.current?.value.length ?? 10;
     titleRef.current?.setSelectionRange(end, end);
     titleRef.current?.focus();
   }
@@ -87,13 +87,7 @@ export function Todo(props: Todo) {
   }
 
   function onBodyChange(e: any) {
-    console.log(e.target.textContent);
     setNewBody(e.target.textContent);
-  }
-
-  function onClick(e: any) {
-    e.target.style.height = "auto";
-    e.target.style.height = `${e.target.scrollHeight}px`;
   }
 
   useEffect(() => {
